@@ -1,5 +1,6 @@
 # NUMPY, SCIPY, AND PANDAS: CORRELATION WITH PYTHON
 import numpy as np
+import scipy.stats
 # Correlation coefficients quantify the association between variables and
 # features of a dataset. These stats are of high importance for science and
 # technology, and Python has tools to calculate them: SciPy, NumPy, and Pandas
@@ -90,3 +91,38 @@ print(f'Correlation coefficient for both arrays:\n{r}')
 # correlation coefficient for x and y.
 
 # EXAMPLE: SciPy CORRELATION CALCULATION
+# SciPy also has many statistics routines contained in scipy.stats:
+# - pearsonr()
+# - spearmanr()
+# - kendalltau()
+
+pearson = scipy.stats.pearsonr(x, y)  # Pearson's r
+# (0.7586402890911869, 0.010964341301680832)
+print(f"\nPearson's r for both arrays:\n{pearson}")
+
+spearman = scipy.stats.spearmanr(x, y)  # Spearman's rho
+print(f"\nSpearman's Rho:\n{spearman}")
+# SpearmanrResult(correlation=0.9757575757575757,
+#                 pvalue=1.4675461874042197e-06)
+
+kendall = scipy.stats.kendalltau(x, y)  # Kendall's tau
+print(f"\nKendall's Tau:\n{kendall}")
+# KendalltauResult(correlation=0.911111111111111,
+#                  pvalue=2.9761904761904762e-05)
+
+# The p-value in statistical methods is for testing hypotheses. It is an
+# important measure that requires in-depth knowledge of probability and stats
+# to interpret.
+
+# We can extract p-values and correlation coefficients using indices (since
+# we get back tuples):
+# pearson[0], spearman[0], or kendall[0]
+
+# We can also use dot notation for the Spearman and Kendall coefficients:
+print(f"\nSpearman correlation coefficient:\n{spearman.correlation}")
+print(f"\nKendall correlation coefficient:\n{kendall.correlation}")
+
+# Dot notation may be longer but is more readable and self-explanatory
+# We can also use Python unpacking since these functions return tuples
+r, p = pearson
+print(f"\nPearson's r and p-value, respectively:\n{r}\n{p}")
