@@ -1,5 +1,5 @@
 # NUMPY, SCIPY, AND PANDAS: CORRELATION WITH PYTHON
-
+import numpy as np
 # Correlation coefficients quantify the association between variables and
 # features of a dataset. These stats are of high importance for science and
 # technology, and Python has tools to calculate them: SciPy, NumPy, and Pandas
@@ -54,3 +54,37 @@
 #
 # Pearson's coefficient measures linear correlation, while Spearman and Kendall
 # coefficients compare the ranks of data.
+
+# Example: NumPy Correlation Calculation
+# NumPy has many statistics routines. np.corrcoef() returns a matrix of Pearson
+# correlation coefficients.
+
+# arange() creates an array of integers between 10 (inclusive) and 20
+# (exclusive)
+x = np.arange(10, 20)  # array([10, 11, 12, 13, 14, 15, 16, 17, 18, 19])
+print(f'First array:\n{x}')
+
+y = np.array([2, 1, 4, 5, 8, 12, 18, 25, 96, 48])
+# array([ 2,  1,  4,  5,  8, 12, 18, 25, 96, 48])
+
+print(f'Second array:\n{y}')
+
+# Once you have two arrays of the same length, you can call np.corrcoef() with
+# both arrays as arguments
+r = np.corrcoef(x, y)
+# array([[1.        , 0.75864029],
+#        [0.75864029, 1.        ]])
+
+print(f'Correlation coefficient for both arrays:\n{r}')
+
+# corrcoef() returns the correlation matrix, which is a 2D array with the
+# correlation coefficients
+
+# The values on the main diagonal of the correlation matrix (upper left and
+# lower right) are equal to 1. The upper left value corresponds to the
+# correlation coefficient for x and x, while the lower right value is the
+# correlation coefficient for y and y. They are always equal to 1.
+
+# What you usually need are lower left and upper right values of the
+# correlation matrix. These values are equal and both represent the Pearson
+# correlation coefficient for x and y.
