@@ -55,7 +55,7 @@ import numpy as np
 # Pearson's coefficient measures linear correlation, while Spearman and Kendall
 # coefficients compare the ranks of data.
 
-# Example: NumPy Correlation Calculation
+# EXAMPLE: NumPy CORRELATION CALCULATION
 # NumPy has many statistics routines. np.corrcoef() returns a matrix of Pearson
 # correlation coefficients.
 
@@ -88,3 +88,5 @@ print(f'Correlation coefficient for both arrays:\n{r}')
 # What you usually need are lower left and upper right values of the
 # correlation matrix. These values are equal and both represent the Pearson
 # correlation coefficient for x and y.
+
+# EXAMPLE: SciPy CORRELATION CALCULATION
