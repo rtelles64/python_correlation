@@ -150,3 +150,53 @@ print(f"\nSpearman's rho (Pandas): {x.corr(y, method='spearman')}")
 
 # Kendall's tau
 print(f"\nKendall's tau (Pandas): {x.corr(y, method='kendall')}")
+
+# Notice with Pandas we use .corr() to calculate all 3 correlation coefficients
+
+# LINEAR CORRELATION
+# Linear correlation measures the proximity of the mathematical relationship
+# between variables or dataset features to a linear function. If the
+# relationship between the two features is closer to some linear function, then
+# their linear correlation is stronger and the absolute value of the
+# correlation coefficient is higher.
+
+# Perason Correlation Coefficient
+# Consider a dataset with two features: x and y. Each feature has n values, so
+# x and y are n-tuples. If all values from x correspond to all values from y
+# (x1 to y1, x2 to y2, etc.) then there are n pairs of corresponding values:
+# (x1, y1), (x2, y2), etc. Each of these x-y pairs represents a single
+# observation.
+#
+# The Pearson (product-moment) correlation coefficient is a measure of the
+# linear relationship between two features. It's the ratio of the covariance of
+# x and y to the product of their standard deviations. It's often denoted with
+# the letter r and called Pearson's r and can be expressed methematically.
+#
+# Some important facts about the Pearson correlation coefficient:
+# - The Pearson correlation coefficient can take on any real value in the range
+#   -1 <= r <= 1
+# - The maximum value r = 1 corresponds to the case when there's a perfect
+#   positive linear relationship between x and y (i.e. larger x values
+#   correspond to larger y values and vice versa)
+# - The value r > 0 indicates positive correlation between x and y
+# - The value r = 0 corresponds to the case when x and y are independent
+# - The value r < 0 indicates negative correlation between x and y
+# - The minimal value r = -1 corresponds to the case when there's a perfect
+#   negative linear relationship between x and y (i.e. larger x values
+#   correspond to smaller y values and vice versa)
+#
+# In table form, this info can be summed up:
+#     Pearson's r | x and y Correlation
+#     ------------+-------------------------------------
+#         r = 1   | perfect positive linear relationship
+#     ------------+-------------------------------------
+#         r > 0   | positive correlation
+#     ------------+-------------------------------------
+#         r = 0   | independent
+#     ------------+-------------------------------------
+#         r < 0   | negative correlation
+#     ------------+-------------------------------------
+#         r = -1  | perfect negative linear relationship
+#
+# In short, a larger r indicates stronger correlation, closer to a linear
+# function. A smaller r indicates weaker correlation.
