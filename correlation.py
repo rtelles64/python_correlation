@@ -1,9 +1,11 @@
 # NUMPY, SCIPY, AND PANDAS: CORRELATION WITH PYTHON
 import numpy as np
+import pandas as pd
 import scipy.stats
 # Correlation coefficients quantify the association between variables and
 # features of a dataset. These stats are of high importance for science and
 # technology, and Python has tools to calculate them: SciPy, NumPy, and Pandas
+
 
 # CORRELATION
 # Statistics and data science are concerned about the relationships between two
@@ -56,6 +58,7 @@ import scipy.stats
 # Pearson's coefficient measures linear correlation, while Spearman and Kendall
 # coefficients compare the ranks of data.
 
+
 # EXAMPLE: NumPy CORRELATION CALCULATION
 # NumPy has many statistics routines. np.corrcoef() returns a matrix of Pearson
 # correlation coefficients.
@@ -89,6 +92,7 @@ print(f'Correlation coefficient for both arrays:\n{r}')
 # What you usually need are lower left and upper right values of the
 # correlation matrix. These values are equal and both represent the Pearson
 # correlation coefficient for x and y.
+
 
 # EXAMPLE: SciPy CORRELATION CALCULATION
 # SciPy also has many statistics routines contained in scipy.stats:
@@ -126,3 +130,23 @@ print(f"\nKendall correlation coefficient:\n{kendall.correlation}")
 # We can also use Python unpacking since these functions return tuples
 r, p = pearson
 print(f"\nPearson's r and p-value, respectively:\n{r}\n{p}")
+
+
+# EXAMPLE: PANDAS CORRELATION CALCULATION
+# Pandas is, in some cases, more convenient than NumPy and SciPy for
+# calculating statistics. It offers statistical methods for Series and
+# DataFrame instances. For example, given two Series objects with the same
+# number of itesm, you can call .corr() on one of them with the other as the
+# first argument.
+x = pd.Series(range(10, 20))
+y = pd.Series([2, 1, 4, 5, 8, 12, 18, 25, 96, 48])
+
+# Perason's r
+print(f"\nPearson's r (Pandas) for x and y:\n{x.corr(y)}")
+print(y.corr(x))
+
+# Spearman's rho
+print(f"\nSpearman's rho (Pandas): {x.corr(y, method='spearman')}")
+
+# Kendall's tau
+print(f"\nKendall's tau (Pandas): {x.corr(y, method='kendall')}")
