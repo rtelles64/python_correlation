@@ -160,7 +160,7 @@ print(f"\nKendall's tau (Pandas): {x.corr(y, method='kendall')}")
 # their linear correlation is stronger and the absolute value of the
 # correlation coefficient is higher.
 
-# Perason Correlation Coefficient
+# Pearson Correlation Coefficient
 # Consider a dataset with two features: x and y. Each feature has n values, so
 # x and y are n-tuples. If all values from x correspond to all values from y
 # (x1 to y1, x2 to y2, etc.) then there are n pairs of corresponding values:
@@ -200,3 +200,62 @@ print(f"\nKendall's tau (Pandas): {x.corr(y, method='kendall')}")
 #
 # In short, a larger r indicates stronger correlation, closer to a linear
 # function. A smaller r indicates weaker correlation.
+
+# Linear Regression: SciPy Implementation
+# Linear regression is the process of finding the linear function that best
+# describes the association between features. This linear function is also
+# called the regression line.
+#
+# We can implement linear regression with SciPy. We'll get the linear function
+# that best approximates the relationship between two arrays, as well as the
+# Pearson correlation coefficient.
+#
+# We use scipy.stats.linregress() to perform linear regression for two arrays
+# of the same length. The arrays are passed as arguments, and the outputs are
+# retrieved using dot notation.
+x = np.arange(10, 20)
+y = np.array([2, 1, 4, 5, 8, 12, 18, 25, 96, 48])
+
+result = scipy.stats.linregress(x, y)
+
+print(
+    "\nLinear Regression with SciPy:"
+    f"\nSlope: {result.slope}",  # 7.4363636363636365
+    f"\nIntercept: {result.intercept}",  # -85.92727272727274
+    f"\nr-value: {result.rvalue}",  # 0.7586402890911869
+    f"\np-value: {result.pvalue}",  # 0.010964341301680825
+    f"\nStandard error: {result.stderr}"  # 2.257878767543913
+)
+
+# With scipy we've completed linear regression with the following results:
+# - slope: the slope of the regression line
+# - intercept: the intercept of the regression line
+# - pvalue: the p-value
+# - stderr: the standard error of the estimated gradient
+#
+# We could've also provided our data as a single argument to linregress but it
+# must be passed as a 2D array with one dimension of length two.
+
+# NOTE: scipy.stats.linregress() considers rows as features and columns as
+#       observations. That's because there are two rows.
+#
+#       In machine learning, the practice is opposite: rows are observations,
+#       columns are features. Many machine learning libraries follow this
+#       convention.
+#
+#       When analyzing correlation in a dataset, you should note how
+#       observations and features are indicated.
+
+# linregress() returns the same result if you provide the transpose.
+xy = np.array([[10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
+               [2, 1, 4, 5, 8, 12, 18, 25, 96, 48]])
+print("\nLinear Regression with Transpose (SciPy):",
+      f"\n{scipy.stats.linregress(xy.T)}")
+
+# You should also be careful to note whether or not your dataset contains
+# missing values. In data science and machine learning, you'll often find
+# missing or corrupted data. The usual representation is by using NaN (No a
+# Number). If your data contains nan values, you won't get a useful result.
+#
+# You can check whether a variable corresponds to nan with math.isnan() or
+# numpy.isnan().
