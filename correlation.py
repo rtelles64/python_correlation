@@ -259,3 +259,29 @@ print("\nLinear Regression with Transpose (SciPy):",
 #
 # You can check whether a variable corresponds to nan with math.isnan() or
 # numpy.isnan().
+
+# Pearson Correlation: NumPy and SciPy Implementation
+# We can get the Pearson correlation coefficient with corrcoef() and pearsonr()
+#
+# NOTE: if we provide an array with nan values to pearsonr(), we get ValueError
+#
+# Instead of passing two arrays as arguments, we can pass corrcoef() one 2D
+# array and get the same results. Again, the first row represents one feature,
+# the second row represents the other.
+#
+# To get correlation coefficients for three features, just provide a 2D array
+# with three rows:
+xyz = np.array([[10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
+                [2, 1, 4, 5, 8, 12, 18, 25, 96, 48],
+                [5, 3, 2, 1, 0, -2, -8, -11, -15, -16]])
+
+print(f"\nCorrelation matrix with a 2D array:\n{np.corrcoef(xyz)}")
+# [[ 1.          0.75864029 -0.96807242]
+#  [ 0.75864029  1.         -0.83407922]
+#  [-0.96807242 -0.83407922  1.        ]]
+
+# By default, numpy.corrcoef() considers rows as features, and columns as
+# observations. If you want the opposite behavior, which is widely used in
+# machine learning, then use rowvar=False
+print("\nMatrix with different convention:",
+      f"\n{np.corrcoef(xyz.T, rowvar=False)}")
