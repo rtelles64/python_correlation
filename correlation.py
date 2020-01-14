@@ -285,3 +285,6 @@ print(f"\nCorrelation matrix with a 2D array:\n{np.corrcoef(xyz)}")
 # machine learning, then use rowvar=False
 print("\nMatrix with different convention:",
       f"\n{np.corrcoef(xyz.T, rowvar=False)}")
+# [[ 1.          0.75864029 -0.96807242]
+#  [ 0.75864029  1.         -0.83407922]
+#  [-0.96807242 -0.83407922  1.        ]]
