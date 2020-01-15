@@ -395,3 +395,19 @@ print(f'\nCorrelation using corrwith():\n{xy.corrwith(z)}')
 # - concordant if either (xi > xj and yi > yj) or (xi < xj and yi < yj)
 # - discordant if either (xi < xj and yi > yj) or (xi > xj and yi < yj)
 # - neither if there's a tie in x (xi = xj) or a tie in y (yi = yj)
+#
+# The Kendall correlation coefficient compares the number of concordant and
+# discordant pairs of data. This coefficient is based on the difference in the
+# counts of concordant and discordant pairs relative to the number of x-y
+# pairs. It's often denoted by the Greek letter tau and called Kendall's tau.
+#
+# Some important facts about the Kendall correlation coefficient are as
+# follows:
+# - It can take a real value in the range -1 <= tau <= 1
+# - Its max value tau = 1 corresponds to the case when the ranks of the
+#   corresponding values in x and y are the same. In other words, all pairs are
+#   concordant.
+# - Its min value tau = -1 corresponds to the case when the rankings in x are
+#   the reverse of the rankings in y. In other words, all pairs are discordant.
+#
+# You can calculate Kendall's tau in Python similarly to Pearson's r.
