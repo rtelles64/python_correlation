@@ -350,3 +350,12 @@ print(f'\nCorrelation using corrwith():\n{xy.corrwith(z)}')
 # Both corr() and corrwith() have the optional parameter 'method' to specify
 # the correlation coefficient that you want to calculate. The Pearson
 # correlation coefficient is the default
+
+
+# RANK CORRELATION
+# Rank correlation compares the ranks (orderings) of the data related to two
+# variables or dataset features. If the orderings are similar, then the
+# correlation is strong, positive, and high. If the orderings are close to
+# reversed, then the correlation is strong, negative, and low. In other words,
+# rank correlation is concerned only with the order of values, not with the
+# particular values from the dataset.
