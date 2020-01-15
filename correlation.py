@@ -288,3 +288,65 @@ print("\nMatrix with different convention:",
 # [[ 1.          0.75864029 -0.96807242]
 #  [ 0.75864029  1.         -0.83407922]
 #  [-0.96807242 -0.83407922  1.        ]]
+
+# Pearson Correlation: Pandas Implementation
+x = pd.Series(range(10, 20))
+y = pd.Series([2, 1, 4, 5, 8, 12, 18, 25, 96, 48])
+z = pd.Series([5, 3, 2, 1, 0, -2, -8, -11, -15, -16])
+xy = pd.DataFrame({'x-values': x, 'y-values': y})
+xyz = pd.DataFrame({'x-values': x, 'y-values': y, 'z-values': z})
+
+# NOTE: When working with DataFrame instances, rows are observations and
+#       columns are features. This is consistent with the usual practice in
+#       machine learning
+
+# If you provide a nan value, then .corr() will still work, but will exclude
+# observations that contain nan values
+u, u_with_nan = pd.Series([1, 2, 3]), pd.Series([1, 2, np.nan, 3])
+v, w = pd.Series([1, 4, 8]), pd.Series([1, 4, 154, 8])
+print(f'\nCorrelation without NaN: {u.corr(v)}')  # 0.9966158955401239
+print(f'Correlation with NaN: {u_with_nan.corr(w)}')  # 0.9966158955401239
+# We get the same value because corr() ignores the pair of values (np.nan, 154)
+# that has a missing value
+
+# We can also use corr() with DataFrame objects to get the correlation matrix
+# for their columns
+corr_matrix = xy.corr()
+print(f'\nDataFrame correlation matrix:\n{corr_matrix}')
+
+# The resulting correlation matrix is a new instance of DataFrame and holds the
+# correlation coefficients for the columns xy['x-values'] and xy['y-values'].
+# These labeled results are usually convenient to work with because you can
+# access them with either their labels or their integer position indices:
+print(f"\nAccess by label: {corr_matrix.at['x-values', 'y-values']}")
+print(f"Access by index: {corr_matrix.iat[0, 1]}")
+
+# You can apply corr() the same way with DataFrame objects that contain three
+# or more columns:
+print(f'\nDataFrame correlation (3+ columns):\n{xyz.corr()}')
+#           x-values  y-values  z-values
+# x-values  1.000000  0.758640 -0.968072
+# y-values  0.758640  1.000000 -0.834079
+# z-values -0.968072 -0.834079  1.000000
+
+# From the above matrix, we have the following correlation coefficients:
+# - 0.758640 for x-values and y-values
+# - -0.968072 for x-values and z-values
+# - -0.834079 for y-values and z-values
+
+# Another useful method is corrwith(), which allows you to calculate the
+# correlation coefficients between the rows or columns of one DataFrame and
+# another Series or DataFrame passed as the first argument:
+print(f'\nCorrelation using corrwith():\n{xy.corrwith(z)}')
+# In this case, the result is a new Series with the correlation coefficient for
+# the column xy['x-values'] and the values of z, as well as the coefficient for
+# xy['y-values'] and z
+
+# corrwith() has the optional parameter 'axis' that specifies whether columns
+# or rows represent the features. The default value is axis = 0, and also
+# defaults to columns representing features. There's also a 'drop' parameter,
+# which indicates what to do with missing values
+#
+# Both corr() and corrwith() have the optional parameter 'method' to specify
+# the correlation coefficient that you want to calculate. The Pearson
+# correlation coefficient is the default
