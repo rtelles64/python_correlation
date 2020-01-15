@@ -411,3 +411,37 @@ print(f'\nCorrelation using corrwith():\n{xy.corrwith(z)}')
 #   the reverse of the rankings in y. In other words, all pairs are discordant.
 #
 # You can calculate Kendall's tau in Python similarly to Pearson's r.
+
+# Rank: SciPy Implementation
+# We can use scipy.stats to determine rank for each value in an array using
+# rankdata()
+x = np.arange(10, 20)
+y = np.array([2, 1, 4, 5, 8, 12, 18, 25, 96, 48])
+z = np.array([5, 3, 2, 1, 0, -2, -8, -11, -15, -16])
+print(
+    "\nRank data (SciPy):",
+    f'\nx: {scipy.stats.rankdata(x)}',
+    f'\ny: {scipy.stats.rankdata(y)}',
+    f'\nz: {scipy.stats.rankdata(z)}'
+)
+# The arrays x and z are monotonic, so their ranks are monotonic as well. The
+# smallest value in y is 1 and it corresponds to the rank 1. The second
+# smallest is 2, which corresponds to rank 2. The largest value is 96, which
+# corresponds to the largest rank 10 since there are 10 items in the array.
+#
+# rankdata() has the optional parameter 'method'. This tells Python what to do
+# if there are ties in the array (if two or more values are equal). By default,
+# it assigns them the average of the ranks:
+scipy.stats.rankdata([8, 2, 0, 2])  # array([4. , 2.5, 1. , 2.5])
+# There are two elements with value 2 and they have the ranks 2.0 and 3.0. The
+# value 0 has rank 1.0 and the value 8 has rank 4.0. Then, both elements with
+# the value 2 will get the same rank 2.5.
+
+# rankdata() treats nan values as if they were large:
+scipy.stats.rankdata([8, np.nan, 0, 2])  # array([3., 4., 1., 2.])
+# In this case, the value np.nan corresponds to the largest rank 4.0.
+
+# You can also get ranks with np.argsort():
+np.argsort(y) + 1  # array([ 2,  1,  3,  4,  5,  6,  7,  8, 10,  9])
+# argsort() returns the indices that the array items would have in the sorted
+# array. These indices are zero-based, so you'll need to add 1 to all of them.
