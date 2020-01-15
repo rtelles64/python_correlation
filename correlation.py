@@ -359,3 +359,31 @@ print(f'\nCorrelation using corrwith():\n{xy.corrwith(z)}')
 # reversed, then the correlation is strong, negative, and low. In other words,
 # rank correlation is concerned only with the order of values, not with the
 # particular values from the dataset.
+#
+# When looking only at rank, all linear correlation relationships are positive.
+# Larger x values corresponding to larger y values are perfect positive rank
+# correlations. Smaller x values corresponding to smaller y values are perfect
+# negative rank correlations.
+
+# Spearman Correlation Coefficient
+# The Spearman correlation coefficient between two features is the Pearson
+# correlation coefficient between their rank values. It's calculated the same
+# way as the Pearson correlation coefficient but takes into account their ranks
+# instead of their values. It's often denoted with the Greek letter rho and
+# called Spearman's rho.
+#
+# Say you have two n-tuples, x and y, where (x1, y1), (x2, y2), ... are the
+# observations as pairs of corresponding values. You can calculate the Spearman
+# correlation coefficient rho the same way as the Pearson coefficient. You'll
+# use ranks instead of the actual values from x and y.
+#
+# Some important facts about the Pearson correlation coefficient:
+# - It can take a real value in the range -1 <= rho <= 1
+# - Its maximum value rho = 1 corresponds to the case when there's a
+#   monotonically increasing function between x and y. In other words, larger x
+#   values correspond to larger y values and vice versa.
+# - Its minimum value rho = -1 corresponds to the case when there's a
+#   monotonically decreasing function between x and y. In other words, larger x
+#   values correspond to smaller y values and vice versa.
+#
+# You calculate Spearman's rho in Python similar to Pearson's r.
