@@ -387,3 +387,11 @@ print(f'\nCorrelation using corrwith():\n{xy.corrwith(z)}')
 #   values correspond to smaller y values and vice versa.
 #
 # You calculate Spearman's rho in Python similar to Pearson's r.
+
+# Kendall Correlation Coefficient
+# Considering two n-tuples, x and y. Each x-y pair (x1, y1), (x2, y2), ... is a
+# single observation. A pair of observations (xi, yi) and (xj, yj), where i < j
+# will be one of three things:
+# - concordant if either (xi > xj and yi > yj) or (xi < xj and yi < yj)
+# - discordant if either (xi < xj and yi > yj) or (xi > xj and yi < yj)
+# - neither if there's a tie in x (xi = xj) or a tie in y (yi = yj)
