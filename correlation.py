@@ -1,4 +1,5 @@
 # NUMPY, SCIPY, AND PANDAS: CORRELATION WITH PYTHON
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import scipy.stats
@@ -541,3 +542,37 @@ print(f"\nKendall's tau:\n{kendall_x}\n{kendall_xy}\n{kendall_xyz}")
 print(f"\nKendall's with corriwth:\n{kendall_with}")
 
 # Unlike with SciPy, you can use a single 2D data structure (DataFrame)
+
+
+# VISUALIZATION OF CORRELATION
+# Set the style of the plots
+plt.style.use('ggplot')
+
+x = np.arange(10, 20)
+y = np.array([2, 1, 4, 5, 8, 12, 18, 25, 96, 48])
+z = np.array([5, 3, 2, 1, 0, -2, -8, -11, -15, -16])
+xyz = np.array([[10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
+                [2, 1, 4, 5, 8, 12, 18, 25, 96, 48],
+                [5, 3, 2, 1, 0, -2, -8, -11, -15, -16]])
+
+# X-Y Plots with a Regression Line
+# Get the slope and intercept of the regression line, as well as the
+# correlation coefficient (use linregress())
+slope, intercept, r, p, stderr = scipy.stats.linregress(x, y)
+
+# Get the string representation of the equation of the regression line and the
+# value of the correlation coefficient
+line = f'Regression line: y={intercept:.2f}+{slope:.2f}x, r={r:.2f}'
+print(f'\n{line}')
+
+# Now cfeate the x-y plot with plot()
+fig, ax = plt.subplots()
+ax.plot(x, y, linewidth=0, marker='s', label='Data poins')
+ax.plot(x, intercept+slope*x, label=line)
+ax.set_xlabel('x')
+ax.set_ylabel('y')
+ax.legend(facecolor='white')
+plt.show()
+# The red squares in the plot represent observations, the blue line is the
+# regression line. Its equation is listed in the legend, together with the
+# correlation coefficient
