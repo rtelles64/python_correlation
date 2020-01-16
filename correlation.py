@@ -445,3 +445,63 @@ scipy.stats.rankdata([8, np.nan, 0, 2])  # array([3., 4., 1., 2.])
 np.argsort(y) + 1  # array([ 2,  1,  3,  4,  5,  6,  7,  8, 10,  9])
 # argsort() returns the indices that the array items would have in the sorted
 # array. These indices are zero-based, so you'll need to add 1 to all of them.
+
+# Rank Correlation: NumPy and SciPy Implementation
+# You can calculate the Spearman correlation coefficient with
+# scipy.stats.spearmanr():
+result = scipy.stats.spearmanr(x, y)
+# SpearmanrResult(correlation=0.9757575757575757,
+#                 pvalue=1.4675461874042197e-06)
+print(f'\nSpearman result: {result}')
+rho, p = result
+print(f'Spearman rho and p-value, respective: {rho}, {p}')
+
+# We get the same result if we provide a 2D array that contains the same data
+xy = np.array([[10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
+               [2, 1, 4, 5, 8, 12, 18, 25, 96, 48]])
+rho, p = scipy.stats.spearmanr(xy, axis=1)
+print(f'\nSpearman rho and p (2D array), respective:\n{rho},\n{p}')
+# The first row of xy is one feature, while the second row is another feature.
+# The optional parameter 'axis' determines whether columns (axis=0) or rows
+# (axis=1) represent the features. The default behavior is that rows are
+# observations and columns are features.
+
+# Another optional parameter 'nan_policy' defines how to handle nan values. It
+# can take one of three values:
+# - 'propogate' returns nan if there's a nan value among the inputs. This is
+#   the default behavior
+# - 'raise' raises a ValueError if there's a nan value among the inputs
+# - 'omit' ignores the observations with nan values
+#
+# If you provide a 2D array with more than two features, you get the
+# correlation matrix and the matrix of the p-values
+xyz = np.array([[10, 11, 12, 13, 14, 15, 16, 17, 18, 19],
+                [2, 1, 4, 5, 8, 12, 18, 25, 96, 48],
+                [5, 3, 2, 1, 0, -2, -8, -11, -15, -16]])
+corr_matrix, p_matrix = scipy.stats.spearmanr(xyz, axis=1)
+print(f'\nCorrelation Matrix:\n{corr_matrix}')
+# [[ 1.          0.97575758 -1.        ]
+#  [ 0.97575758  1.         -0.97575758]
+#  [-1.         -0.97575758  1.        ]]
+print(f'\nP-value Matrix:\n{p_matrix}')
+# [[6.64689742e-64 1.46754619e-06 6.64689742e-64]
+#  [1.46754619e-06 6.64689742e-64 1.46754619e-06]
+#  [6.64689742e-64 1.46754619e-06 6.64689742e-64]]
+
+# The value -1 in the correlation matrix shows that the first and third
+# features have a perfect negative rank correlation (i.e. larger values in the
+# first row always correspond to smaller values in the third)
+
+# You can obtain the Kendall correlation coefficient with kendalltau()
+result = scipy.stats.kendalltau(x, y)
+# KendalltauResult(correlation=0.911111111111111,
+#                  pvalue=2.9761904761904762e-05)
+tau, p = result
+print(f'\nKendall tau and p, respective:\n{tau}\n{p}')
+# kendalltau() works much like spearmanr(): It takes two 1D arrays, has the
+# optional parameter nan_policy, and returns an object with the values of the
+# correlation coefficient and p-value
+
+# If you provide only one 2D array as an argument, then kendalltau() will raise
+# a TypeError. If you pass two multi-dimensional arrays of the same shape, then
+# they'll be flattened before the calculation
