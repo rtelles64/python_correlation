@@ -505,3 +505,39 @@ print(f'\nKendall tau and p, respective:\n{tau}\n{p}')
 # If you provide only one 2D array as an argument, then kendalltau() will raise
 # a TypeError. If you pass two multi-dimensional arrays of the same shape, then
 # they'll be flattened before the calculation
+
+# Rank Correlation: Pandas Implementation
+# You can calculate the Spearman rho and Kendall tau correlation coefficients
+# with Pandas
+x, y, z = pd.Series(x), pd.Series(y), pd.Series(z)
+xy = pd.DataFrame({'x-values': x, 'y-values': y})
+xyz = pd.DataFrame({'x-values': x, 'y-values': y, 'z-values': z})
+
+# We can use corr() and corrwith() just like when calculating the Pearson
+# correlation coefficient. We just need to specify the desired correlation
+# coefficient 'method', which defaults to 'pearson'
+spearman_x = x.corr(y, method='spearman')  # 0.9757575757575757
+spearman_xy = xy.corr(method='spearman')
+#           x-values  y-values
+# x-values  1.000000  0.975758
+# y-values  0.975758  1.000000
+spearman_xyz = xyz.corr(method='spearman')
+#           x-values  y-values  z-values
+# x-values  1.000000  0.975758 -1.000000
+# y-values  0.975758  1.000000 -0.975758
+# z-values -1.000000 -0.975758  1.000000
+spearman_with = xy.corrwith(z, method='spearman')
+
+print(f"\nSpearman's rho:\n{spearman_x}\n{spearman_xy}\n{spearman_xyz}")
+print(f"\nSpearman's with corrwith():\n{spearman_with}")
+
+# If you want Kendall's tau, use method=kendall:
+kendall_x = x.corr(y, method='kendall')
+kendall_xy = xy.corr(method='kendall')
+kendall_xyz = xyz.corr(method='kendall')
+kendall_with = xy.corrwith(z, method='kendall')
+
+print(f"\nKendall's tau:\n{kendall_x}\n{kendall_xy}\n{kendall_xyz}")
+print(f"\nKendall's with corriwth:\n{kendall_with}")
+
+# Unlike with SciPy, you can use a single 2D data structure (DataFrame)
