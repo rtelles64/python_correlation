@@ -576,3 +576,52 @@ plt.show()
 # The red squares in the plot represent observations, the blue line is the
 # regression line. Its equation is listed in the legend, together with the
 # correlation coefficient
+
+# Heatmaps of Correlation Matrices
+# The correlation matrix can become big and confusing when you have a lot of
+# features. You can present it visually as a heatmap where each field has the
+# color that corresponds to its value.
+#
+# You need the correlation matrix
+corr_matrix = np.corrcoef(xyz).round(decimals=2)
+# array([[ 1.  ,  0.76, -0.97],
+#        [ 0.76,  1.  , -0.83],
+#        [-0.97, -0.83,  1.  ]])
+#
+# You can round numbers with round() as they're going to be on the heatmap
+#
+# Create heatmap with imshow() and the correlation matrix as its argument
+fig, ax = plt.subplots()
+im = ax.imshow(corr_matrix)
+im.set_clim(-1, 1)
+ax.grid(False)
+ax.xaxis.set(ticks=(0, 1, 2), ticklabels=('x', 'y', 'z'))
+ax.yaxis.set(ticks=(0, 1, 2), ticklabels=('x', 'y', 'z'))
+ax.set_ylim(2.5, -0.5)
+
+for i in range(3):
+    for j in range(3):
+        ax.text(j, i, corr_matrix[i,j], ha='center', va='center', color='r')
+
+cbar = ax.figure.colorbar(im, ax=ax, format='% .2f')
+plt.show()
+
+# The result is a table with the coefficients. Yellow represents the number 1,
+# green corresponds to 0.76, purple is used for negative numbers.
+
+
+# CONCLUSION
+# Correlation coefficients are stats that measure association between variables
+# or features of datasets.
+#
+# You can now use Python to calculate:
+# - Pearson's product-moment correlation coefficient
+# - Spearman's rank correlation coefficient
+# - Kendall's rank correlation coefficient
+#
+# Now you can use NumPy, SciPy, and Pandas correlation functions and methods
+# to effectively calculate these (and other) stats, even when you work with
+# large datasets.
+#
+# You can also visualize data, regression lines, and correlation matrices with
+# Matplotlib plots and heatmaps
