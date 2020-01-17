@@ -1,4 +1,5 @@
 # NUMPY, SCIPY, AND PANDAS: CORRELATION WITH PYTHON
+# Info here: https://realpython.com/numpy-scipy-pandas-correlation-python/
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
